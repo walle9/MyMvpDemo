@@ -185,7 +185,7 @@
 #---------------------------------实体类---------------------------------
 #--------(实体Model不能混淆，否则找不到对应的属性获取不到值)-----
 #
--dontwarn com.suchengkeji.android.confusiondemo.md.**
+-dontwarn com.examole.mymvpdemo.model.bean.**
 #对含有反射类的处理
 -keep class com.suchengkeji.android.confusiondemo.md.** { *; }
 #
@@ -212,9 +212,6 @@
 #
 # ----------------------------- 第三方 -----------------------------
 #
--dontwarn com.orhanobut.logger.**
--keep class com.orhanobut.logger.**{*;}
--keep interface com.orhanobut.logger.**{*;}
 
 -dontwarn com.google.gson.**
 -keep class com.google.gson.**{*;}
@@ -246,3 +243,58 @@
 -keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
     <init>(java.lang.Throwable);
 }
+
+
+#
+#---------------------------------okhttp3-------------------------
+#
+
+# JSR 305 annotations are for embedding nullability information.
+-dontwarn javax.annotation.**
+
+# A resource is loaded with a relative path so the package of this class must be preserved.
+-keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
+
+# Animal Sniffer compileOnly dependency to ensure APIs are compatible with older versions of Java.
+-dontwarn org.codehaus.mojo.animal_sniffer.*
+
+# OkHttp platform used only on JVM and when Conscrypt dependency is available.
+-dontwarn okhttp3.internal.platform.ConscryptPlatform
+
+
+#
+#---------------------------------okio-------------------------
+#
+
+# Animal Sniffer compileOnly dependency to ensure APIs are compatible with older versions of Java.
+-dontwarn org.codehaus.mojo.animal_sniffer.*
+
+
+#
+#---------------------------------logger-------------------------
+#
+-dontwarn com.orhanobut.logger.**
+-keep class com.orhanobut.logger.**{*;}
+-keep interface com.orhanobut.logger.**{*;}
+
+
+#
+#---------------------------------glide-------------------------
+#
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+
+-dontwarn com.bumptech.glide.load.resource.bitmap.VideoDecoder
+#-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+-keep class com.bumptech.glide.integration.okhttp.OkHttpGlideModule
+
+
+#
+#---------------------------------毛玻璃 realtimeblurview -------------------------
+#
+-keep class android.support.v8.renderscript.** { *; }
+-keep class androidx.renderscript.** { *; }
